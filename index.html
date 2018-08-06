@@ -5,6 +5,9 @@
 </head>
  
 <body>
+  cpu <span id="cpu"></span><br/>
+  memory <span id="memory"></span><br/>
+
   We are using node <script>document.write(process.versions.node)</script>,
   Chrome <script>document.write(process.versions.chrome)</script>,
   and Electron <script>document.write(process.versions.electron)</script>.
@@ -29,13 +32,17 @@
     if (!!prevUse) {
       console.log(use - prevUse);
       console.log(all - prevAll);
-      console.log((use - prevUse) / (all - prevAll));
+      const cpuUse = (use - prevUse) / (all - prevAll);
+      console.log(cpuUse);
+      document.getElementById('cpu').innerText = cpuUse;
     }
     prevUse = use;
     prevAll = all;
 
     const memoryInfo = process.getSystemMemoryInfo();
-    console.log((memoryInfo.total - memoryInfo.free) / memoryInfo.total);
+    const memoryUse = (memoryInfo.total - memoryInfo.free) / memoryInfo.total;
+    console.log(memoryUse);
+    document.getElementById('memory').innerText = memoryUse;
   }
 
   console.log(process.getSystemMemoryInfo());
