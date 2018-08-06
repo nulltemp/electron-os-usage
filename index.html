@@ -9,4 +9,37 @@
   Chrome <script>document.write(process.versions.chrome)</script>,
   and Electron <script>document.write(process.versions.electron)</script>.
 </body>
+<script>
+  const os = require('os')
+  var prevUse = null;
+  var prevAll = null;
+
+  function view() {
+    const cpus = os.cpus();
+    console.log(cpus);
+
+    var use = 0;
+    var all = 0;
+    cpus.forEach(element => {
+      const times = element.times;
+      let temp = times.user + times.nice + times.sys + times.irq;
+      use += temp;
+      all += temp + times.idle;
+    });
+    if (!!prevUse) {
+      console.log(use - prevUse);
+      console.log(all - prevAll);
+      console.log((use - prevUse) / (all - prevAll));
+    }
+    prevUse = use;
+    prevAll = all;
+
+    const memoryInfo = process.getSystemMemoryInfo();
+    console.log((memoryInfo.total - memoryInfo.free) / memoryInfo.total);
+  }
+
+  console.log(process.getSystemMemoryInfo());
+
+  setInterval("view()", 1000);
+</script>
 </html>
