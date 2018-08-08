@@ -7,5 +7,8 @@
   },
   "keywords": [],
   "author": "",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "chart.js": "^2.7.2"
+  }
 }

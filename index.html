@@ -5,44 +5,9 @@
 </head>
  
 <body>
-  cpu <span id="cpu"></span><br/>
-  memory <span id="memory"></span>
+  <div class"chart-container" style="position: relative; height:90vh; width:90vw">
+      <canvas id="chart"></canvas>
+  </div>
 </body>
-<script>
-  const os = require('os')
-  var prevUse = null;
-  var prevAll = null;
-
-  function view() {
-    const cpus = os.cpus();
-    console.log(cpus);
-
-    var use = 0;
-    var all = 0;
-    cpus.forEach(element => {
-      const times = element.times;
-      let temp = times.user + times.nice + times.sys + times.irq;
-      use += temp;
-      all += temp + times.idle;
-    });
-    if (!!prevUse) {
-      console.log(use - prevUse);
-      console.log(all - prevAll);
-      const cpuUse = (use - prevUse) / (all - prevAll);
-      console.log(cpuUse);
-      document.getElementById('cpu').innerText = cpuUse;
-    }
-    prevUse = use;
-    prevAll = all;
-
-    const memoryInfo = process.getSystemMemoryInfo();
-    const memoryUse = (memoryInfo.total - memoryInfo.free) / memoryInfo.total;
-    console.log(memoryUse);
-    document.getElementById('memory').innerText = memoryUse;
-  }
-
-  console.log(process.getSystemMemoryInfo());
-
-  setInterval("view()", 1000);
-</script>
+<script src="function.js"></script>
 </html>

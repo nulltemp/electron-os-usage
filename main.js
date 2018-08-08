@@ -33,10 +33,12 @@ function createWindow() {
   const newMenu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(newMenu);
 
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({width: 400, height: 250});
  
   mainWindow.loadFile('index.html');
- 
+
+  // mainWindow.webContents.openDevTools();
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
